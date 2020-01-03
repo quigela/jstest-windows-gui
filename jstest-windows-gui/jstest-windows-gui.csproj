@@ -59,12 +59,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CordBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="CordBox.Designer.cs">
-      <DependentUpon>CordBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="DirectInputBroker.cs" />
     <Compile Include="DirectInputControl.cs">
       <SubType>UserControl</SubType>
@@ -90,9 +84,6 @@
     <Compile Include="XInputControl.Designer.cs">
       <DependentUpon>XInputControl.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="CordBox.resx">
-      <DependentUpon>CordBox.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="DirectInputControl.resx">
       <DependentUpon>DirectInputControl.cs</DependentUpon>
     </EmbeddedResource>
