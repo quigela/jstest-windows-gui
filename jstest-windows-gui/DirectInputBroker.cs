@@ -9,7 +9,7 @@ namespace jstest_windows_gui
         private DirectInput directInput = new DirectInput();
         private ArrayList joystickGuids = new ArrayList();
         private Joystick joystick = null;
-        public const int BUFSIZE = 128; 
+        private int BUFSIZE = 128; 
         public DirectInputBroker()
         {
             foreach (var deviceInstance in directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices))
@@ -20,6 +20,15 @@ namespace jstest_windows_gui
             {
                 this.joystickGuids.Add(deviceInstance.InstanceGuid);
             }
+        }
+
+        public void setBufSize(int x)
+        {
+            BUFSIZE = x;
+        }
+        public int getBufSize()
+        {
+            return BUFSIZE;
         }
         public bool createInstance(Guid guid)
         {
@@ -32,7 +41,7 @@ namespace jstest_windows_gui
                 }
                 this.joystick = new Joystick(directInput, guid);
 
-                joystick.Properties.BufferSize = DirectInputBroker.BUFSIZE;
+                joystick.Properties.BufferSize = getBufSize();
 
                 joystick.Acquire();
 

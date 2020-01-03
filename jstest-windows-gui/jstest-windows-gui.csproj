@@ -59,7 +59,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CordBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CordBox.Designer.cs">
+      <DependentUpon>CordBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="DirectInputBroker.cs" />
+    <Compile Include="DirectInputControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DirectInputControl.Designer.cs">
+      <DependentUpon>DirectInputControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +84,18 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="XInputBroker.cs" />
+    <Compile Include="XInputControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="XInputControl.Designer.cs">
+      <DependentUpon>XInputControl.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CordBox.resx">
+      <DependentUpon>CordBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DirectInputControl.resx">
+      <DependentUpon>DirectInputControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -85,6 +109,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="XInputControl.resx">
+      <DependentUpon>XInputControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

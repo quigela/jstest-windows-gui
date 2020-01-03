@@ -40,6 +40,17 @@ namespace jstest_windows_gui
             }
         }
 
+        public void disconnect()
+        {
+            if (selectedController != null)
+            {
+                if (selectedController.IsConnected)
+                {
+                    selectedController = null;
+                }
+            }
+        }
+
         public Controller getSelectedController()
         {
             return selectedController;
