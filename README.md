@@ -7,3 +7,7 @@
 2. SharpDX.DirectInput - DirectInput API
 3. SharpDX.XInput - XInput API
 4. Costura.Fody - Bundling resources for self-contained executable
+
+
+git config --global core.whitespace cr-at-eol
+git config -global core-autoCrlf

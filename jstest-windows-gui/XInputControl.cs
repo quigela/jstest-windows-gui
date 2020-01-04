@@ -60,7 +60,7 @@ namespace jstest_windows_gui
                 XInputThreadControl.WaitOne();
                 //Console.WriteLine("poll XInput");
 
-                if (!c.IsConnected)
+                if (!c.IsConnected) 
                 {
                     this.Invoke((MethodInvoker)delegate {
                         LogXInput("Selected XInput controller is no longer available!");
