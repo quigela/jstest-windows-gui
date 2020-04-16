@@ -15,8 +15,8 @@ namespace jstest_windows_gui
         private Thread DirectInputThread = null;
         public ManualResetEvent DirectInputThreadControl = new ManualResetEvent(true);
 
-        private Dictionary<int, string> cordMap = new Dictionary<int, string> { { 0, "X" }, { 1, "Y" }, { 2, "Z" }, { 3, "ZZ" },
-        { 4, "AA" },{ 5, "BB" },{ 6, "CC" },{ 7, "DD" },{ 8, "EE" },{ 9, "FF" } };
+        private readonly Dictionary<int, string> cordMap = new Dictionary<int, string> { { 0, "X" }, { 1, "Y" }, { 2, "Z" }, { 3, "AA" },
+        { 4, "BB" },{ 5, "CC" },{ 6, "DD" },{ 7, "EE" },{ 8, "FF" },{ 9, "GG" } };
         public DirectInputControl()
         {
             dBroker = new DirectInputBroker();
@@ -46,13 +46,13 @@ namespace jstest_windows_gui
         {
             LogDirectInput("Searching DirectInput devices...");
 
-            if (!dBroker.devsFound())
+            if (!dBroker.DevsFound())
             {
                 LogDirectInput("No DirectInput devices detected.");
             }
             else
             {
-                foreach (Guid g in dBroker.getGuidList())
+                foreach (Guid g in dBroker.GetGuidList())
                 {
                     DirectInputDeviceList.Items.Add(g.ToString());
                     LogDirectInput("DirectInput device found: " + g.ToString());
@@ -72,7 +72,7 @@ namespace jstest_windows_gui
         private void DirectInputInterval()
         {
 
-            Joystick joystick = dBroker.getInstance();
+            Joystick joystick = dBroker.GetInstance();
 
             while (true)
             {
@@ -88,9 +88,9 @@ namespace jstest_windows_gui
                     {
                         
                         //button list refresh
-                        updateButtons(state);
-                        updateSliders(state);
-                        updateHat(state);
+                        UpdateButtons(state);
+                        UpdateSliders(state);
+                        UpdateHat(state);
                     });
                 }
                 catch (Exception ex) when (ex is SharpDX.SharpDXException || ex is System.NullReferenceException)
@@ -98,15 +98,15 @@ namespace jstest_windows_gui
                     this.Invoke((MethodInvoker)delegate
                     {
                         LogDirectInput("Connection lost!");
-                        dBroker.voidInstance();
-                        abortDInput();
+                        dBroker.VoidInstance();
+                        AbortDInput();
                     });
                 }
                 Thread.Sleep(50);
             }
         }
 
-        private void updateHat(JoystickState state)
+        private void UpdateHat(JoystickState state)
         {
             for (int i = 0; i < 4; i++)
             {
@@ -124,7 +124,7 @@ namespace jstest_windows_gui
             }
         }
 
-        private void updateButtons(JoystickState state)
+        private void UpdateButtons(JoystickState state)
         {
             DirectInputButtonList.BeginUpdate();
 
@@ -146,7 +146,7 @@ namespace jstest_windows_gui
             DirectInputButtonList.EndUpdate();
         }
 
-        private void updateSliders(JoystickState state)
+        private void UpdateSliders(JoystickState state)
         {
             Dictionary<string, int[]> dataMap = new Dictionary<string, int[]>
                         {
@@ -193,11 +193,11 @@ namespace jstest_windows_gui
             int index = this.DirectInputDeviceList.IndexFromPoint(e.Location);
             if (index != System.Windows.Forms.ListBox.NoMatches)
             {
-                abortDInput();
-                clearDInputData();
+                AbortDInput();
+                ClearDInputData();
                 Guid guid = Guid.Parse(DirectInputDeviceList.Items[index].ToString());
                 LogDirectInput("Attaching to DirectInput device: " + guid.ToString());
-                if (dBroker.createInstance(guid))
+                if (dBroker.CreateInstance(guid))
                 {
                     DirectInputDiscoverCapabilities();
                     DirectInputThread = new Thread(DirectInputInterval);
@@ -216,9 +216,9 @@ namespace jstest_windows_gui
             Console.WriteLine(e.Button.ToString());
             if (e.Button == MouseButtons.Right)
             {
-                abortDInput();
-                clearDInputData();
-                dBroker.voidInstance();
+                AbortDInput();
+                ClearDInputData();
+                dBroker.VoidInstance();
                 LogDirectInput("Detached!");
             }
         }
@@ -227,7 +227,7 @@ namespace jstest_windows_gui
         {
             //if (dBroker.getInstance() == null) return;
 
-            SharpDX.DirectInput.Capabilities caps = dBroker.getInstance().Capabilities;
+            SharpDX.DirectInput.Capabilities caps = dBroker.GetInstance().Capabilities;
             Dictionary<string, string> capDict = new Dictionary<string, string>
             {
                 {"POV Count",  caps.PovCount.ToString()},
@@ -262,14 +262,14 @@ namespace jstest_windows_gui
 
         private void DirectInputReset_Click(object sender, EventArgs e)
         {
-            abortDInput();
-            clearDInputData();
+            AbortDInput();
+            ClearDInputData();
             DirectInputDeviceList.Items.Clear();
             dBroker = new DirectInputBroker();
             LoadDirectInput();
         }
 
-        private void clearDInputData()
+        private void ClearDInputData()
         {
             DirectInputHatValue.Text = "";
             DirectInputSliderList.Items.Clear();
@@ -278,7 +278,7 @@ namespace jstest_windows_gui
             DirectInputHatList.Items.Clear();
         }
 
-        public void abortDInput()
+        public void AbortDInput()
         {
             if (this.DirectInputThread != null) { DirectInputThread.Abort(); }
         }

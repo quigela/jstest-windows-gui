@@ -39,7 +39,7 @@ namespace jstest_windows_gui
         {
             LogXInput("Adding XInput devices...");
 
-            XInputDeviceList.Items.AddRange(xBroker.getDevices().ToArray());
+            XInputDeviceList.Items.AddRange(xBroker.GetDevices().ToArray());
 
             LogXInput("Double-Click Player to connect...");
         }
@@ -53,7 +53,7 @@ namespace jstest_windows_gui
 
         private void XInputInterval()
         {
-            Controller c = xBroker.getSelectedController();
+            Controller c = xBroker.GetSelectedController();
             State previousState = new State();
             while (true)
             {
@@ -212,10 +212,10 @@ namespace jstest_windows_gui
                 XInputBroker.IndexMap.TryGetValue(XInputDeviceList.Items[index].ToString(), out controllerIndex);
                 LogXInput("Attaching to XInput controller: " + XInputDeviceList.Items[index].ToString());
 
-                if (xBroker.selectController(controllerIndex))
+                if (xBroker.SelectController(controllerIndex))
                 {
                     LogXInput("Attached to " + controllerIndex.ToString() + "!");
-                    XInputCurrentIndexValue.Text = xBroker.getLastUsedIndex().ToString();
+                    XInputCurrentIndexValue.Text = xBroker.GetLaseUsedIndex().ToString();
 
                     XInputLeftVibration.Enabled = true;
                     XInputRightVibration.Enabled = true;
@@ -255,7 +255,7 @@ namespace jstest_windows_gui
 
         private void setVibration(ushort left, ushort right)
         {
-            Controller c = xBroker.getSelectedController();
+            Controller c = xBroker.GetSelectedController();
             if (c.IsConnected)
             {
                 Vibration v = new Vibration();

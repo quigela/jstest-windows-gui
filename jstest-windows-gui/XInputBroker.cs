@@ -24,7 +24,7 @@ namespace jstest_windows_gui
             
         }
 
-        public bool selectController(UserIndex index)
+        public bool SelectController(UserIndex index)
         {
             Controller c = new Controller(index);
             if (c.IsConnected)
@@ -40,34 +40,25 @@ namespace jstest_windows_gui
             }
         }
 
-        public void disconnect()
-        {
-            if (selectedController != null)
-            {
-                if (selectedController.IsConnected)
-                {
-                    selectedController = null;
-                }
-            }
-        }
-
-        public Controller getSelectedController()
+        public Controller GetSelectedController()
         {
             return selectedController;
         }
 
-        public UserIndex getLastUsedIndex()
+        public UserIndex GetLaseUsedIndex()
         {
             return selectedControllerId;
         }
 
-        public ArrayList getDevices()
+        public ArrayList GetDevices()
         {
-            ArrayList indices = new ArrayList();
-            indices.Add(UserIndex.One);
-            indices.Add(UserIndex.Two);
-            indices.Add(UserIndex.Three);
-            indices.Add(UserIndex.Four);
+            ArrayList indices = new ArrayList
+            {
+                UserIndex.One,
+                UserIndex.Two,
+                UserIndex.Three,
+                UserIndex.Four
+            };
             return indices;
         }
     }

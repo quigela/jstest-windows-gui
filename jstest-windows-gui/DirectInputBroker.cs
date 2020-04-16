@@ -6,10 +6,10 @@ namespace jstest_windows_gui
 {
     class DirectInputBroker
     {
-        private DirectInput directInput = new DirectInput();
-        private ArrayList joystickGuids = new ArrayList();
+        private readonly DirectInput directInput = new DirectInput();
+        private readonly ArrayList joystickGuids = new ArrayList();
         private Joystick joystick = null;
-        private int BUFSIZE = 128; 
+        private int BUFSIZE { get; set; } = 128; 
         public DirectInputBroker()
         {
             foreach (var deviceInstance in directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices))
@@ -22,15 +22,7 @@ namespace jstest_windows_gui
             }
         }
 
-        public void setBufSize(int x)
-        {
-            BUFSIZE = x;
-        }
-        public int getBufSize()
-        {
-            return BUFSIZE;
-        }
-        public bool createInstance(Guid guid)
+        public bool CreateInstance(Guid guid)
         {
             try
             {
@@ -41,7 +33,7 @@ namespace jstest_windows_gui
                 }
                 this.joystick = new Joystick(directInput, guid);
 
-                joystick.Properties.BufferSize = getBufSize();
+                joystick.Properties.BufferSize = BUFSIZE;
 
                 joystick.Acquire();
 
@@ -53,7 +45,7 @@ namespace jstest_windows_gui
             }
         }
 
-        public void voidInstance()
+        public void VoidInstance()
         {
             if (this.joystick != null)
             {
@@ -69,21 +61,21 @@ namespace jstest_windows_gui
             }
         }
 
-        public Joystick getInstance()
+        public Joystick GetInstance()
         {
             return joystick;
         }
 
-        public int getGuidCount()
+        public int GetGuidCount()
         {
             return joystickGuids.Count;
         }
-        public bool devsFound()
+        public bool DevsFound()
         {
             return (joystickGuids.Count > 0);
         }
 
-        public ArrayList getGuidList()
+        public ArrayList GetGuidList()
         {
             return joystickGuids;
         }

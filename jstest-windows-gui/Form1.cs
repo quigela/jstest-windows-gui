@@ -18,7 +18,7 @@ namespace jstest_windows_gui
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            directInputControl1.abortDInput();
+            directInputControl1.AbortDInput();
             xInputControl1.abortXInput();
         }
 
@@ -29,7 +29,7 @@ namespace jstest_windows_gui
             xInputControl1.LoadXInput();
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedIndex == 0)
             {
